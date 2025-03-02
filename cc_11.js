@@ -95,17 +95,21 @@
             console.log(`Sorry :(, we are all out of copies of "${book.title}". Please check again another time!`);
         }
     }
-}
+
  // Task 5 - Implementing Book returns 
-    returnBook(borrowerId,isbn) {   
-        // finding the book by the ISBN 
-    const book= this.books.find(b=>navigator.isbn==isbn); // Finind the borrower by their ID 
-    const borrower=this.borrowers.find(b=>b.borrowerId===borrowerId);
+    returnBook(borrowerId, isbn) {  
+     const book = this.books.find(b => b.isbn === isbn); // Finding the book by the ISBN 
+    const borrower=this.borrowers.find(b=>b.borrowerId===borrowerId); // Finind the borrower by their ID 
     //Checking if the book is in the system 
-        if(book) {
-            console.log('book with ISBN ${isbn} not found !');
-            return;  // Stop if they never borrowed this book
+        if(!book) {
+            console.log(`Book with ISBN ${isbn} not found!`);
+            return;  // Invalif ISBN 
         }
+        if (!borrower) {
+            console.log(`Borrower with ID ${borrowerId} not found!`);
+            return; // Invalid borrower id 
+        } 
+        
         book.updateCopies(1);  // Adds  a copy back to the books available copies
         // Remove the book title from borrower's borrowedBooks list
         borrower.returnBook(book.title);
@@ -113,7 +117,7 @@
         // Confirmation message
         console.log(`${borrower.name} returned "${book.title}".`);
     } 
-
+    }
 // Test Case : 
   // Task 3: 
   const library = new Library();
