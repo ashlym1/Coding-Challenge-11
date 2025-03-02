@@ -3,9 +3,9 @@
     class Book { 
      constructor(title,author,isbn,copies){
         this.title=title;  // title of the book 
-        this.author=author; // Author of the book 
+        this.author=author; // Author 
         this.isbn=isbn; // Book number 
-        this.copies=copies; // how many are they 
+        this.copies=copies; // How many copies are availabel
     } // This will allow that the result is in a formated order 
     getDetails() {
     return `Title: ${this.title}, Author:${this.author}, ISBN: ${this.isbn}, Copies: ${this.copies }`;
@@ -52,27 +52,54 @@
             borrower1.returnBook("The Great Gatsby");
             console.log(borrower1.borrowedBooks);
             // Expected output: []
-
-// *Task 3- Creating a Library Class : Keeping track of multiple books and borrowers 
-  //This class is the Library itself that will manage all the books and those who are borrowing 
+ 
+  //**I combined task 3 and 4 as they are in the same class(Library) because they need to be managed in the same place like  challenge 10
+// * Task 3 - Creating a Library Class : Keeping track of multiple books and borrowers 
     class Library {
         constructor() {
-        this.books = []; //Array to hold all book instances 
-        this.borrowers=[]; // Array is to hold the borrowes instances
+            this.books = [];      // Array to hold all book instances 
+            this.borrowers = [];  // Array to hold all borrower instances
     }
-    //This Method will add a new book to the library
+
+    // This Method adds a new book to the library
     addBook(book) {
-        this.books.push(book); // Adding book instance to the book array 
+        this.books.push(book);  
     }
+
+    // This Method lists all books in the library
     listBooks() {
-        console.log("List of Books in the Library : " ); // Mehtod to list all the books that are in the Library
-        this.books.forEach(book=> { 
-            console.log(book.getDetails ()); // 
-        }) ;
+        this.books.forEach(book => console.log(book.getDetails()));  
     }
+
+    // This Method adds a new borrower to the library
+    addBorrower(borrower) {
+        this.borrowers.push(borrower);  
     }
-       // Test Cases: 
-        const library = new Library();
-    library.addBook(book1);
-    library.listBooks();
-    // Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
+  // Test cases for 3 and 4 will be at the end *
+    // * Task 4 - Implementing Book Borrowing (I followed the same method I used in Challenge 10)
+    lendBook(borrowerId, isbn) {
+        const book = this.books.find(book => book.isbn === isbn);  // Using ISBN 
+        const borrower = this.borrowers.find(b => b.borrowerId === borrowerId); // Find the borrower using their ID
+            // If the book is not found : 
+        if (!book) {
+            console.log(`Book with ISBN ${isbn} was not found,please try again.`);
+            return;  // this ends  the method
+        }
+        // If borrower not found
+        if (!borrower) {
+            console.log(`Borrower with ID ${borrowerId} was not found,please try again.`);
+            return;  // ending  the method
+        }
+
+        // Checking  if there are copies available
+        if (book.copies > 0) {
+            book.updateCopies(-1);  // Reduce the books copies by 1
+            borrower.borrowBook(book.title);  // Add the borrowed book to the borrower's list
+            console.log(`${borrower.name} borrowed "${book.title}".`);
+        } else {
+            console.log(`Sorry :(, we are all out of copies of "${book.title}". Please check again another time!`);
+        }
+    }
+}
+ 
+// Test Case : 
