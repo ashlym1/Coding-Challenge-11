@@ -53,26 +53,22 @@
             console.log(borrower1.borrowedBooks);
             // Expected output: []
  
-  //**I combined task 3 and 4 as they are in the same class(Library) because they need to be managed in the same place like  challenge 10
+  //**I combined task 3,4,5  as they are in the same class(Library) because they need to be managed in the same place like  challenge 10
 // * Task 3 - Creating a Library Class : Keeping track of multiple books and borrowers 
     class Library {
         constructor() {
             this.books = [];      // Array to hold all book instances 
             this.borrowers = [];  // Array to hold all borrower instances
     }
-
     // This Method adds a new book to the library
     addBook(book) {
         this.books.push(book);  
     }
-
     // This Method lists all books in the library
     listBooks() {
         this.books.forEach(book => console.log(book.getDetails()));  
     }
-
-    // This Method adds a new borrower to the library
-    addBorrower(borrower) {
+    addBorrower(borrower) {   // Method adds a new borrower to the library
         this.borrowers.push(borrower);  
     }
   // Test cases for 3 and 4 will be at the end *
@@ -90,7 +86,6 @@
             console.log(`Borrower with ID ${borrowerId} was not found,please try again.`);
             return;  // ending  the method
         }
-
         // Checking  if there are copies available
         if (book.copies > 0) {
             book.updateCopies(-1);  // Reduce the books copies by 1
@@ -101,5 +96,39 @@
         }
     }
 }
- 
+ // Task 5 - Implementing Book returns 
+    returnBook(borrowerId,isbn) {   
+        // finding the book by the ISBN 
+    const book= this.books.find(b=>navigator.isbn==isbn); // Finind the borrower by their ID 
+    const borrower=this.borrowers.find(b=>b.borrowerId===borrowerId);
+    //Checking if the book is in the system 
+        if(book) {
+            console.log('book with ISBN ${isbn} not found !');
+            return;  // Stop if they never borrowed this book
+        }
+        book.updateCopies(1);  // Adds  a copy back to the books available copies
+        // Remove the book title from borrower's borrowedBooks list
+        borrower.returnBook(book.title);
+
+        // Confirmation message
+        console.log(`${borrower.name} returned "${book.title}".`);
+    } 
+
 // Test Case : 
+  // Task 3: 
+  const library = new Library();
+library.addBook(book1);
+library.listBooks();
+// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
+// Task 4: 
+library.lendBook(201, 123456);
+console.log(book1.getDetails());
+// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 3"
+console.log(borrower1.borrowedBooks);
+// Expected output: ["The Great Gatsby"]
+ // Task 5: 
+ library.returnBook(201, 123456);
+console.log(book1.getDetails());
+// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
+console.log(borrower1.borrowedBooks);
+// Expected output: []
