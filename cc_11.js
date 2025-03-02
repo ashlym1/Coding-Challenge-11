@@ -1,14 +1,16 @@
- // Task 1 - Creting Book class 
- class Book {
-    constructor(title,author,isbn,copies){
-        this.title=title;
-        this.author=author;
-        this.isbn=isbn;
-        this.copies=copies;
-    }
+ // Task 1 - Creating Book class 
+    // Developing a Library Management system.
+        // This will represent books in the library "Task 2 - Created Borrower Class"
+    class Book { 
+     constructor(title,author,isbn,copies){
+        this.title=title;  // title of the book 
+        this.author=author; // Author of the book 
+        this.isbn=isbn; // Book number 
+        this.copies=copies; // how many are they 
+    } // This will allow that the result is in a formated order 
     getDetails() {
-    return `Title: ${this.title}Author:${this.author}, ISBN: ${this.isbn}, Copies${this.copies }`;
-}
+    return `Title: ${this.title}, Author:${this.author}, ISBN: ${this.isbn}, Copies: ${this.copies }`;
+} 
     updateCopies(quantity) {
        this.copies +=quantity;
 }
@@ -23,15 +25,19 @@ console.log(book1.getDetails());
 // Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
 
  // Task 2- Creating Borrower Class 
+    // A person borrowing a book and the following is to track the books. 
     class Borrower {
         constructor(name,borrowerId) {
-            this.name=name;
-            this.borrowerId=borrowerId;
-            this.borrowedBooks=[] ; // This array is to  store  borrowed books by their title.
+            this.name=name;  // The name of who is borrowing 
+            this.borrowerId=borrowerId; // The unique ID that is assigned to them 
+            this.borrowedBooks=[] ; // The list of borrwed books by their title 
+            // 
         }
-        borrowBooks(bookTitle) {
+         //This method is to add books by their tile to the list of borrowed books 
+        borrowBook(bookTitle) {
             this.borrowedBooks.push(bookTitle) ;
         }
+        // This  method  removes the book from the list when it's borrowed 
         returnBook(bookTitle){
         const index=this.borrowedBooks.indexOf(bookTitle) ; 
         if(index >-1) {
