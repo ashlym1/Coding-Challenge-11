@@ -117,7 +117,7 @@
         // Confirmation message
         console.log(`${borrower.name} returned "${book.title}".`);
     } 
-    }
+    };
 // Test Case : 
   // Task 3: 
   const library = new Library();
