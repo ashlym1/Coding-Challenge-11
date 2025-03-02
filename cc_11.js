@@ -13,16 +13,8 @@
     updateCopies(quantity) {
        this.copies +=quantity;
 }
- }      
-     // Test Cases : 
-     const book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 123456, 5);
-     console.log(book1.getDetails());
-     // Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 5"
-  
-     book1.updateCopies(-1);
-     console.log(book1.getDetails());
-      // Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
-
+ }  
+        // test cases for 1 and 2 are at the end 
  //* Task 2- Creating Borrower Class: A person borrowing a book and the following is to track the books. 
     class Borrower {
         constructor(name,borrowerId) {
@@ -43,15 +35,6 @@
         }
     }
 }
-             //Test Cases: 
-                const borrower1 = new Borrower("Alice Johnson", 201);
-            borrower1.borrowBook("The Great Gatsby");
-            console.log(borrower1.borrowedBooks);
-            // Expected output: ["The Great Gatsby"]
-
-            borrower1.returnBook("The Great Gatsby");
-            console.log(borrower1.borrowedBooks);
-            // Expected output: []
  
   //**I combined task 3,4,5  as they are in the same class(Library) because they need to be managed in the same place like  challenge 10
 // * Task 3 - Creating a Library Class : Keeping track of multiple books and borrowers 
@@ -117,22 +100,30 @@
         // Confirmation message
         console.log(`${borrower.name} returned "${book.title}".`);
     } 
-    };
-// Test Case : 
-  // Task 3: 
-  const library = new Library();
-library.addBook(book1);
+}
+// Test Case : Adding borrower1= borrower 
+    // Task 3: 
+const library = new Library();
+const book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 123456, 5);
+library.addBook(book1); // Adding book to the library 
+
+const borrower1 = new Borrower("Alice Johnson", 201);
+library.addBorrower(borrower1);  //     
+
 library.listBooks();
-// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
-// Task 4: 
+// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 5"
+
+// Task 4: Borrow the book
 library.lendBook(201, 123456);
 console.log(book1.getDetails());
-// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 3"
-console.log(borrower1.borrowedBooks);
-// Expected output: ["The Great Gatsby"]
- // Task 5: 
- library.returnBook(201, 123456);
-console.log(book1.getDetails());
 // Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
 console.log(borrower1.borrowedBooks);
+// Expected output: ["The Great Gatsby"]
+
+// Task 5: Return the book
+library.returnBook(201, 123456);
+console.log(book1.getDetails());
+// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 5"
+console.log(borrower1.borrowedBooks);
 // Expected output: []
+ 
